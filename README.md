@@ -1,68 +1,55 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## ToDoApp
 
-## Available Scripts
+### Introduction
 
-In the project directory, you can run:
+This is my first project using React. The idea was to built a to do list app where a user could add/remove items from a list.
 
-### `npm start`
+### Steps to achieve this so far
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+#### Using the Context API
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+I recently finished learning about the Context API from the **course I'm taking on Udemy (add link here)** and wanted to practice using this. 
 
-### `npm test`
+Context API: From my current understanding, it is used to avoid the dreaded passing of props down multiple layers of an application. I understand that this must be great tool to utilise.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+However, my app is very simple so I could have done without the Context API in this instance. I am happy to have implemented it here as it forced me to read a lot of ReactJS documentation.
 
-### `npm run build`
+#### Thought process as I built the basics of the app
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+##### Component 1: MyContext (Context API)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+I started with getting the Context API setup in a new class based component: **MyProvider.** In here I do the following things:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Set up context using the **createContext()** method
+- Set up state in this class with an **items** array, holding each to do list item in an object.
 
-### `npm run eject`
+Once I reach the **render()** method, the following things are done:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- I instantiate the context object (MyContext) with the **Provider** component. This takes a **value** attribute, containing all of the props that you want to pass to **descending** components (called consumers).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+##### Component 2: ToDoList (Generation of the to do list)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+In the ToDoList component, I make use of the **Consumer** component instantiated on the MyContext object. Inside this component, you must call a function which provides you with access to all of the context values in an argument - I call this context.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**InputElement() method - component:**
 
-## Learn More
+Inside this component, I have two inputs: one is not linked to the context, whereas the other one is. This last input makes use of a method held in the context, allowing for the **currentItem** to be stored.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+To store the current item when the user submits an item, I make use of **refs**. This allows for me to save a reference to the input button where the submission was fired from, so I can pull out the value of this and save it in my context.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**render() method:**
 
-### Code Splitting
+This is where the InputElement is instantiated followed by another **Consumer**. Here I access the items inside my context which make up the to do list, and use the **map** method to output these in a list.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+##### Component 3: App (Main Component)
 
-### Analyzing the Bundle Size
+This merges the context component and ToDoList component together to create the desired output.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+### Future areas to work on
 
-### Making a Progressive Web App
+This app is no where near 'done'. It was mocked together to quickly practice a few React basics (state, props, context API, use of refs) so I don't forget them. This README will serve as a way for me to see how I used these concepts later down the line too. However below I have a list of things to add:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Ability to remove items
+- Styling: virtually no styles applied!
+- Have a user account to store To Do List items
+- Linked to above: add a backend to handle to do items 
