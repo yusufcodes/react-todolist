@@ -53,3 +53,4 @@ This app is no where near 'done'. It was mocked together to quickly practice a f
 - Styling: virtually no styles applied!
 - Have a user account to store To Do List items
 - Linked to above: add a backend to handle to do items 
+- Split out components into separare files for when I add on to the app: maintainability
